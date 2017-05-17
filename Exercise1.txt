@@ -1,0 +1,111 @@
+We start with an empty heap.
+A heap is a binary tree, where the key of each node is bigger or equal than the parent-node
+For a complete heap, each row i [0, 1, ... h-1] has maximum 2^i nodes.
+	In row h-1, each internal node is on the left side of the external
+	In row h-1, there is maximum one node with just a single child. If he exists, all other internal
+		nodes are in the same row left of him. His child is a left child
+The last node is always the very right node in the last row.
+
+Insert: we add a node at the end (stays complete), and swap it with his parent, if he is smaller
+RemoveMin: we return the root and remove it. The last node will be put into the root.
+			Then we swap it with the child having the lower key, until there is no child with lower key
+			
+
+Visualization:
+
+#############
+Insert(12, A)
+
+Steps:
+			12
+			
+			
+#
+Final Tree:
+			12
+
+
+#############
+Insert(42, B)
+
+Steps:
+			12		//12 < 42
+		42
+			
+#
+Final Tree:
+			12
+		42
+
+
+#############
+Insert(1, C)
+
+Steps:
+			12
+		42		1
+		
+		
+			1
+		42		12
+			
+#
+Final Tree:
+			1
+		42		12
+
+
+#############
+removeMin() --> "C" (1)
+
+Steps:
+			-
+		42		12  //12 == end, so we move it up
+		
+		
+			12		// 12 < 42
+		42		
+			
+#
+Final Tree:
+			12
+		42
+
+
+#############
+Insert(5, d)
+
+Steps:
+			12
+		42		5
+	
+		
+			5
+		42		12
+			
+#
+Final Tree:
+			5
+		42		12
+
+
+#############
+removeMin() --> "D" (5)
+
+Steps:
+			-
+		42		12
+		
+		
+			12
+		42		
+			
+#
+Final Tree:
+			12
+		42
+
+
+#############
+Array Representation:
+[12, 42]

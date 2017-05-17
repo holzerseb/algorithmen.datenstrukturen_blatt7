@@ -1,0 +1,159 @@
+#########################
+Insertion-Sort:
+
+for i = 1 to size(A)
+	j = i
+	while j > 0 and A[j-1] > A[j]
+		swap A[j] and A[j-1]
+		j = j-1
+	end while
+end for
+
+So in worst case, the Runtime is O(n^2)
+
+
+Visualization:
+
+Original:
+7, 23, 13, 47, 42
+
+Steps:
+i=1; j=1;
+7, 23, 13, 47, 42 //nothing to be done, because 7 < 23
+
+i=2; j=2;
+7, 13, 23, 47, 42 //A[j-1] > A[j], so swap them
+i=2; j=1;
+7, 13, 23, 47, 42 // 7 < 13
+
+i=3; j=3;
+7, 13, 23, 47, 42 // 23 < 47
+
+i=4; j=4;
+7, 13, 23, 42, 47 //A[j-1] > A[j], so swap them
+i=4; j=3;
+7, 13, 23, 42, 47 // 23 < 47
+
+Final:
+7, 13, 23, 42, 47
+
+
+#########################
+Selection-Sort:
+
+for i in range(0, n-1):
+	k = i //k == minElement
+	for j in range(i, n-1):
+		if(A[j] < A[k])
+			k = j
+		end if
+	end for
+	swap A[i] and A[k] //if i != k
+end for
+
+Complexity is O(n^2)
+
+
+Visualization:
+
+Original:
+7, 23, 13, 47, 42
+
+Steps:
+i=0; minElement()=7
+7, 23, 13, 47, 42 //minelement == i
+
+i=1; minElement()=13
+7, 13, 23, 47, 42 //Swap 23 and 13, because 13 is the minimum element
+
+i=2; minElement()=23
+7, 13, 23, 47, 42 //nothing to be done
+
+i=3; minElement()=42
+7, 13, 23, 42, 47 //swap
+
+Final:
+7, 13, 23, 42, 47
+
+
+#########################
+Heap-Sort:
+
+The idea is to first build up a heap with heapify:
+
+startIndex = parent(size()-1) // we find the parent of the last index (size()-1)
+for(int j=startIndex; j >= 0; j--) //we loop up until the root
+	downheap(j) //we shift the node down, until it's in heap order (max-/minHeap)
+	
+
+now that we know how to build up the heap, here to sorting algo:
+
+buildHeap(A)
+for i in range(size(A)-1, 1)
+	swap A[0] and A[i]
+	heapSize [A] = heapsize [A] -1
+	buildHeap(A)
+
+	
+Complexity is O(n*log(n)), because we first build a heap (O(n)) then pop elements one at a time taking (O(log(n))
+
+
+Visualization:
+
+Original:
+7, 23, 13, 47, 42
+
+Steps:
+
+BuildHeap:
+Consider Array as Tree:
+			7
+	23				13
+47		42
+
+startindex=4 (Value:42)
+j=1 (Value:23);
+[7,47,13,23,42] //we downheap the 23
+j=0 (Value:7);
+[47,7,13,23,42] //downheaping 7, step 1
+[47,42,13,23,7] //downheaping 7, step 2
+
+Built-Tree:
+			47
+	42				13
+23		7
+
+
+Loop:
+i=4;
+7, 42, 13, 23, 47 //swap A[0] and A[4]
+heapsize = heapsize-1 //==4
+
+build-heap
+42, 7, 13, 23, 47 //downheaping 7
+42, 23, 13, 7, 47 //because heapsize is one less, 47 doesnt get considered anymore
+
+
+i=3;
+7, 23, 13, 42, 47 //swap A[0] and A[3]
+
+build-heap
+23, 7, 13, 42, 47
+
+
+i=2;
+13, 7, 23, 42, 47 //swap A[0] and A[2]
+
+build-heap
+13, 7, 23, 42, 47
+
+
+i=1;
+7, 13, 23, 42, 47 //swap A[0] and A[1]
+
+build-heap
+//nothing to be done
+
+
+Final:
+7, 13, 23, 42, 47
